@@ -22,6 +22,12 @@ public class Screening implements Serializable {
 
     public Screening(){};
 
+    public Screening(Movie movie, LocalDateTime date, CinemaHall cinemaHall){
+        this.movie=movie;
+        this.date=date;
+        this.cinemaHall=cinemaHall;
+    };
+
     public Long getId() {
         return id;
     }

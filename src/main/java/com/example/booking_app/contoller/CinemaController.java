@@ -18,7 +18,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 public class CinemaController {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -37,12 +37,12 @@ public @ResponseBody List<Screening>  getScreenings(@RequestParam(value = "scree
     LocalDate date = screeningDateTime.getDate();
     LocalTime timeFrom = screeningDateTime.getTimeFrom();
     LocalTime timeTo = screeningDateTime.getTimeTo();
-    List<Screening> applicableMovies = screeningService.applicableMoviesInRage(date,timeFrom,timeTo);
+    List<Screening> applicableMovies = screeningService.findApplicableMoviesInRage(date,timeFrom,timeTo);
     return applicableMovies;
     }
 
 @RequestMapping("/availableseats")
-public @ResponseBody List<CinemaSeat> showRoom(@RequestParam(value = "screeningDateTime") String dateTime ,@RequestParam(value="id") Long id) {
+public @ResponseBody List<CinemaSeat> showAvailableSeats(@RequestParam(value = "screeningDateTime") String dateTime ,@RequestParam(value="id") Long id) {
     Screening screening = screeningService.read(id);
     List<CinemaSeat> seats = cinemaSeatService.getCinemaSeatsByScreening(screening);
     List<CinemaSeat> availableSeats = new ArrayList<>();

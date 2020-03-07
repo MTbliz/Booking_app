@@ -18,7 +18,7 @@ public class ReservationRemoveService {
 
     @Scheduled(fixedRate = 30000)
     @Transactional
-    public void demoServiceMethod()
+    public void removeExpiredReservation()
     {
         List<CinemaSeat> reservedSeats = cinemaSeatService.findReservedSeats();
         for(CinemaSeat seat: reservedSeats){

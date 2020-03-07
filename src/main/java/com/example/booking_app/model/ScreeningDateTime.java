@@ -7,10 +7,12 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class ScreeningDateTime {
+public class ScreeningDateTime implements Serializable {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

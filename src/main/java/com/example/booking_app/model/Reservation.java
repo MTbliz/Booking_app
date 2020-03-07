@@ -20,6 +20,15 @@ public class Reservation {
     @OneToOne(mappedBy = "reservation")
     private CinemaSeat cinemaSeat;
 
+    public Reservation() { }
+
+    public Reservation(String firstName, String lastName, LocalDateTime exirationDate, CinemaSeat cinemaSeat) {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.exirationDate=exirationDate;
+        this.cinemaSeat=cinemaSeat;
+    }
+
     public Long getId() {
         return id;
     }

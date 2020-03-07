@@ -22,8 +22,6 @@ public interface CinemaSeatService {
 
     boolean checkIfBlankBetweenReservedSeats(List<CinemaSeat> seatsList);
 
-    boolean checkIfReservDateInRange();
-
     boolean checkIfSeatIsReserved(CinemaSeat seat);
 
     List<CinemaSeat> findAllSeatsInHall(CinemaHall cinemaHall);

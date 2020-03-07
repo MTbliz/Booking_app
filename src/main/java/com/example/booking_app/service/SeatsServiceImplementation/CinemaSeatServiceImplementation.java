@@ -21,7 +21,7 @@ public class CinemaSeatServiceImplementation implements CinemaSeatService {
 
     @Override
     public CinemaSeat create(CinemaSeat cinemaSeat) {
-        return null;
+        return cinemaSeatRepository.save(cinemaSeat);
     }
 
     @Override
@@ -37,7 +37,9 @@ public class CinemaSeatServiceImplementation implements CinemaSeatService {
 
     @Override
     public void delete(Long cinemaSeatId) {
-
+if(cinemaSeatRepository.existsById(cinemaSeatId)){
+    cinemaSeatRepository.deleteById(cinemaSeatId);
+}
     }
 
     @Override
@@ -222,11 +224,7 @@ public class CinemaSeatServiceImplementation implements CinemaSeatService {
             }
         }
     }
-@Override
-    public boolean checkIfReservDateInRange(){
 
-        return true;
-    }
 @Override
     public boolean checkIfSeatIsReserved(CinemaSeat seat){
         if (seat.getReservation() == null) {

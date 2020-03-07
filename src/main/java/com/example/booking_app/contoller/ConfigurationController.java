@@ -1,15 +1,11 @@
 package com.example.booking_app.contoller;
 
-import com.example.booking_app.model.Reservation;
 import com.example.booking_app.repository.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class ConfigurationController {
 
     @Autowired
@@ -18,6 +14,6 @@ public class ConfigurationController {
     @PostMapping("/configuration")
 
     public @ResponseBody String addRecordsToDatabase(){
-      return configurationRepository.someUpdate();
+      return configurationRepository.insertInitialData();
     }
 }

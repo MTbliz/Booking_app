@@ -25,8 +25,8 @@ public class ConfigurationRepository  {
         this.jdbcTemplate = jdbcTemplate;
     }
     @Transactional
-    public String someUpdate() {
-        if (cinemaSeatRepository.findAll() == null) {
+    public String insertInitialData() {
+        if (cinemaSeatRepository.findAll() == null && screeningRepository.findAll()==null) {
              jdbcTemplate.update("INSERT INTO cinema_hall(id_cinemahall) VALUES (1);\n" +
                     "INSERT INTO cinema_hall(id_cinemahall) VALUES (2);\n" +
 

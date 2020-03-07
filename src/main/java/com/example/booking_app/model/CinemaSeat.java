@@ -21,6 +21,15 @@ public class CinemaSeat implements Serializable {
     @JoinColumn(name = "id_reservation", referencedColumnName = "id_reservation")
     private Reservation reservation;
 
+    public CinemaSeat() {}
+
+    public CinemaSeat(int seatNumber, int seatRow, Screening screening, Reservation reservation) {
+        this.seatNumber=seatNumber;
+        this.seatRow=seatRow;
+        this.screening=screening;
+        this.reservation=reservation;
+    }
+
     public Long getId() {
         return id;
     }

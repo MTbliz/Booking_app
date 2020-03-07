@@ -5,7 +5,6 @@ import com.example.booking_app.repository.ScreeningRepository;
 import com.example.booking_app.service.ScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Comparator;
@@ -20,7 +19,7 @@ public class ScreeningServiceImplementation implements ScreeningService {
 
     @Override
     public Screening create(Screening screening) {
-        return null;
+        return screeningRepository.save(screening);
     }
 
     @Override
@@ -30,13 +29,15 @@ public class ScreeningServiceImplementation implements ScreeningService {
     }
 
     @Override
-    public void update(Long screeningId, Screening screening) {
+    public void update(Long screeningId, Screening screening) { screeningRepository.save(screening);
 
     }
 
     @Override
     public void delete(Long screeningId) {
-
+        if(screeningRepository.existsById(screeningId)){
+            screeningRepository.deleteById(screeningId);
+        }
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ScreeningServiceImplementation implements ScreeningService {
     }
 
     @Override
-    public List<Screening> applicableMoviesInRage(LocalDate date, LocalTime timeFrom, LocalTime timeTo){
+    public List<Screening> findApplicableMoviesInRage(LocalDate date, LocalTime timeFrom, LocalTime timeTo){
         List<Screening> screenings = (List<Screening>) this.getAllScreenings();
         List<Screening>  applicableMovies = screenings.stream().filter(screening -> screening.getDate().toLocalDate().equals(date))
                 .filter(screening -> screening.getDate().toLocalTime().isAfter(timeFrom) || screening.getDate().toLocalTime().equals(timeFrom) )

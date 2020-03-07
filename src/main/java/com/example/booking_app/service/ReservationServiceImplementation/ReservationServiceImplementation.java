@@ -6,6 +6,8 @@ import com.example.booking_app.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ReservationServiceImplementation implements ReservationService {
 
@@ -23,21 +25,24 @@ public class ReservationServiceImplementation implements ReservationService {
 
     @Override
     public Reservation read(Long reservationId) {
-        return null;
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        return reservationOptional.get();
     }
 
     @Override
     public void update(Long reservationId, Reservation reservation) {
-
+reservationRepository.save(reservation);
     }
 
     @Override
     public void delete(Long reservationId) {
-reservationRepository.deleteById(reservationId);
+if(reservationRepository.existsById(reservationId)) {
+    reservationRepository.deleteById(reservationId);
+}
     }
 
     @Override
     public Iterable<Reservation> getAllReservations() {
-        return null;
+        return reservationRepository.findAll();
     }
 }
