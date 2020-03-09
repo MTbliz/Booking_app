@@ -91,19 +91,12 @@ class CinemaSeatServiceImplementationTest {
     }
 
     @Test
-    void findAllSeatsInHallTest() {
-        CinemaHall cinemaHall = new CinemaHall();
-        when(cinemaSeatRepository.findByScreeningCinemaHall(cinemaHall))
-                .thenReturn(Stream.of(new CinemaSeat(1,1,new Screening(), new Reservation())).collect(Collectors.toList()));
-        Assertions.assertEquals(1, cinemaSeatService.findAllSeatsInHall(cinemaHall).size());
-    }
-
-    @Test
     void checkIfBlankBetweenReservedSeatsTest() {
         //given
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setId((long) 1);
         Screening screening = new Screening(new Movie(), LocalDateTime.now(),cinemaHall);
+        screening.setId((long) 1);
         CinemaSeat cinemaSeat1 = new CinemaSeat(1,1,screening, null);
         cinemaSeat1.setId((long) 1);
         CinemaSeat cinemaSeat2 = new CinemaSeat(2,1,screening, null);
@@ -132,7 +125,7 @@ class CinemaSeatServiceImplementationTest {
 
 
         //when
-        when(cinemaSeatService.findAllSeatsInHall(cinemaHall))
+        when(cinemaSeatService.getCinemaSeatsByScreening(screening))
                 .thenReturn(seatsList3);
         boolean result1 = cinemaSeatService.checkIfBlankBetweenReservedSeats(seatsList1);
         boolean result2 = cinemaSeatService.checkIfBlankBetweenReservedSeats(seatsList2);

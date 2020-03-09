@@ -61,15 +61,10 @@ if(cinemaSeatRepository.existsById(cinemaSeatId)){
     }
 
     @Override
-    public List<CinemaSeat> findAllSeatsInHall(CinemaHall cinemaHall) {
-        return cinemaSeatRepository.findByScreeningCinemaHall(cinemaHall);
-    }
-
-    @Override
     public boolean checkIfBlankBetweenReservedSeats(List<CinemaSeat> seatsList) {
         boolean blankBetweenReservedFields = true;
-        CinemaHall cinemaHall = seatsList.get(0).getScreening().getCinemaHall();
-        List<CinemaSeat> cinemaHallSeats = findAllSeatsInHall(cinemaHall);
+        Screening screening = seatsList.get(0).getScreening();
+        List<CinemaSeat> cinemaHallSeats = getCinemaSeatsByScreening(screening);
         List<CinemaSeat> temporarySeats = new ArrayList<>();
         for(CinemaSeat c: cinemaHallSeats){
             CinemaSeat artificialSeat = new CinemaSeat();
@@ -94,7 +89,7 @@ if(cinemaSeatRepository.existsById(cinemaSeatId)){
 
             int row = cs1.getSeatRow();
             int seatNumber = cs1.getSeatNumber();
-            List<CinemaSeat> seats = temporarySeats.stream().filter(s -> s.getSeatRow() == cs1.getSeatRow()).collect(Collectors.toList());
+            List<CinemaSeat> seats = temporarySeats.stream().filter(s -> s.getScreening().getCinemaHall() == cs1.getScreening().getCinemaHall()).filter(s->s.getSeatRow() == cs1.getSeatRow()).collect(Collectors.toList());
             seats.sort(Comparator.comparing(cinemaSeat -> cinemaSeat.getSeatNumber()));
 
                 if (seats.size() >= 5) {

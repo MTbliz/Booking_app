@@ -24,7 +24,5 @@ public interface CinemaSeatService {
 
     boolean checkIfSeatIsReserved(CinemaSeat seat);
 
-    List<CinemaSeat> findAllSeatsInHall(CinemaHall cinemaHall);
-
     String printReservationStatus(String firstName, String lastName, List <Long> listOfSeats, int adult, int student, int child);
 }

@@ -15,6 +15,4 @@ public interface CinemaSeatRepository extends CrudRepository <CinemaSeat,Long> {
     List<CinemaSeat> findByReservationNotNull();
 
     List<CinemaSeat> findBySeatRow(int seatRow);
-
-    List<CinemaSeat> findByScreeningCinemaHall(CinemaHall cinemaHall);
 }
