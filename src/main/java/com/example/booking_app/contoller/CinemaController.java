@@ -4,19 +4,19 @@ import com.example.booking_app.model.*;
 import com.example.booking_app.service.CinemaSeatService;
 import com.example.booking_app.service.ReservationService;
 import com.example.booking_app.service.ScreeningService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 public class CinemaController {
@@ -32,8 +32,11 @@ public class CinemaController {
     ReservationService reservationService;
 
 @RequestMapping("/screenings")
-public @ResponseBody List<Screening>  getScreenings(@RequestParam(value = "screeningDateTime") String dateTime) throws IOException {
-    ScreeningDateTime screeningDateTime = new ObjectMapper().setDateFormat(simpleDateFormat).readValue(dateTime, ScreeningDateTime.class);
+public @ResponseBody List<Screening>  getScreenings(@RequestParam(value = "screeningDateTime") String dateTime) throws JsonProcessingException {
+    ScreeningDateTime screeningDateTime = null;
+
+        screeningDateTime = new ObjectMapper().setDateFormat(simpleDateFormat).readValue(dateTime, ScreeningDateTime.class);
+
     LocalDate date = screeningDateTime.getDate();
     LocalTime timeFrom = screeningDateTime.getTimeFrom();
     LocalTime timeTo = screeningDateTime.getTimeTo();
@@ -42,7 +45,7 @@ public @ResponseBody List<Screening>  getScreenings(@RequestParam(value = "scree
     }
 
 @RequestMapping("/availableseats")
-public @ResponseBody List<CinemaSeat> showAvailableSeats(@RequestParam(value = "screeningDateTime") String dateTime ,@RequestParam(value="id") Long id) {
+public @ResponseBody List<CinemaSeat> showAvailableSeats(@RequestParam(value = "screeningDateTime") String dateTime ,@RequestParam(value="id") Long id)  {
     Screening screening = screeningService.read(id);
     List<CinemaSeat> seats = cinemaSeatService.getCinemaSeatsByScreening(screening);
     List<CinemaSeat> availableSeats = new ArrayList<>();
@@ -65,4 +68,6 @@ if(errors.hasErrors()){
                                                                         reservationData.getChild());
         return reservationStatus;
 }
+
+
 }

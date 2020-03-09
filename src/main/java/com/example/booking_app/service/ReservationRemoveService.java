@@ -16,7 +16,7 @@ public class ReservationRemoveService {
     @Autowired
     ReservationService reservationService;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 100000)
     @Transactional
     public void removeExpiredReservation()
     {
@@ -30,6 +30,5 @@ public class ReservationRemoveService {
                 reservationService.delete(reservationId);
             }
         }
-        System.out.println("Reserved Seats:" + reservedSeats.size());
     }
 }

@@ -2,7 +2,6 @@ package com.example.booking_app.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class CinemaHall implements Serializable {
